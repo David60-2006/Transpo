@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike World - Explore All Types of Bikes</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* Header Styles */
+        header {
+            background-color: #ff6b00;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(222, 43, 43, 0.1);
+        }
+
+        .header-container {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           position: relative; /* Add this for proper centering */
+        }
+
+        .logo-name {
+           display: flex;
+            align-items: center;
+            margin-left: 200px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 60px; /* Adjust size */
+            height: auto;
+            margin-left: 450px;* Space between logo and text */
+        }
+
+        .name {
+            font-size: 36px; /* Increase brand name size */
+            font-weight: bold; /* Make it bold */
+            font-family: Arial, sans-serif; /* Choose a readable font */
+        }
+
+        .name .tran {
+            color: white; /* Blue color for "Tran" */
+        }
+
+        .name .spo {
+            color: black; /* Orange color for "Spo" */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        #search-bar {
+            width: 60%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        #search-btn {
+            padding: 12px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+        
+        #search-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .filter-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .filter-btn.active {
+           
+        }
+        
+        .bike-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+        
+        .bike-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .bike-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bike-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .bike-info {
+            padding: 15px;
+        }
+        
+        .bike-type {
+            color: #e74c3c;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .bike-name {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .bike-price {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .bike-features {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .view-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .view-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            #search-bar {
+                width: 70%;
+            }
+            
+            .bike-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        /* Navigation Bar Styles */
+        nav {
+            background-color: #333;
+            color: white;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-container a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container a:hover {
+            background-color: #ff6b00;
+        }
+
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        background-color: #1a252f;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        transition: left 0.3s ease;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+    }
+    
+    .hamburger {
+        display: block;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="logo-name">
+        <img src="C:\Users\heman\Downloads\transpo1.png" width="60" alt="Logo" class="logo">
+        <span class="name">
+            <span class="tran">Tran</span><span class="spo">Spo</span>
+        </span>
+    </div>
+</header>
+<nav>
+    <div class="container nav-container">
+        <a href="home.html"><i class="fas fa-home"></i> Home</a>
+        <a href="bikes.html"><i class="fas fa-motorcycle"></i> Bikes</a>
+        <a href="cars.html"><i class="fas fa-car"></i> Cars</a>
+        <a href="autos.html"><i class="fas fa-caravan"></i> Autos</a>
+        <a href="lorries.html"><i class="fas fa-truck"></i> Lorries</a>
+        <a href="construction.html"><i class="fas fa-snowplow"></i> Construction Vehicles</a>
+    </div>
+</nav>
+    
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search For Vehicles...">
+            <button id="search-btn">Search</button>
+        </div>
+        
+        
+        
+        <div class="bike-grid">
+            <!-- Road Bike -->
+            <div class="bike-card" data-type="road">
+                <img src="https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https%3A%2F%2Fcdni.autocarindia.com%2FNews%2F20250103110201_B2.jpg&c=0" alt="Road Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Road Bike</div>
+                    <h3 class="bike-name">Speedster Pro 3000</h3>
+                    <div class="bike-price">₹3,500</div>
+                    <div class="bike-features">Lightweight carbon frame, 21-speed, aerodynamic design</div>
+                    <a href="b1.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- Mountain Bike -->
+            <div class="bike-card" data-type="mountain">
+                <img src="https://media.zigcdn.com/media/content/2023/Apr/cover_64329971e5a76.png?tr=w-1200" alt="Mountain Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Mountain Bike</div>
+                    <h3 class="bike-name">Trailblazer XT</h3>
+                    <div class="bike-price">₹4,000</div>
+                    <div class="bike-features">Full suspension, 27.5" wheels, hydraulic disc brakes</div>
+                    <a href="b2.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- Hybrid Bike -->
+            <div class="bike-card" data-type="hybrid">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNjtt4QmF0pq0Jrejp2Qi4nLgIm6O0yn4SBg&s" alt="Hybrid Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Hybrid Bike</div>
+                    <h3 class="bike-name">City Commuter 500</h3>
+                    <div class="bike-price">₹2,500</div>
+                    <div class="bike-features">Comfort frame, 24-speed, upright riding position</div>
+                    <a href="b3.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- Electric Bike -->
+            <div class="bike-card" data-type="electric">
+                <img src="https://images.news18.com/ibnlive/uploads/2022/03/bajaj-pulsar-150-164914523716x9.jpg?impolicy=website&width=640&height=360" alt="Electric Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Electric Bike</div>
+                    <h3 class="bike-name">E-Power Touring</h3>
+                    <div class="bike-price">₹2,000</div>
+                    <div class="bike-features">250W motor, 50-mile range, pedal assist</div>
+                    <a href="b4.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- BMX Bike -->
+            <div class="bike-card" data-type="bmx">
+                <img src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/113179/star-city-right-front-three-quarter.jpeg?isig=0" alt="BMX Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">BMX</div>
+                    <h3 class="bike-name">Freestyle Pro</h3>
+                    <div class="bike-price">₹1,500</div>
+                    <div class="bike-features">20" wheels, chromoly frame, pegs included</div>
+                    <a href="b5.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- Kids Bike -->
+            <div class="bike-card" data-type="kids">
+                <img src="https://cdn.bikedekho.com/processedimages/honda/shine-bs6/source/shine-bs6649193c1c79aa.jpg" alt="Kids Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Kids Bike</div>
+                    <h3 class="bike-name">Junior Explorer</h3>
+                    <div class="bike-price">₹2,499</div>
+                    <div class="bike-features">16" wheels, training wheels included, fun colors</div>
+                    <a href="b6.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- Folding Bike -->
+            <div class="bike-card" data-type="folding">
+                <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/144127/shine-100-right-front-three-quarter-2.jpeg?isig=0&q=80" alt="Folding Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Folding Bike</div>
+                    <h3 class="bike-name">Compact Traveler</h3>
+                    <div class="bike-price">₹1,399</div>
+                    <div class="bike-features">Folds in seconds, 20" wheels, lightweight aluminum</div>
+                    <a href="b7.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+            
+            <!-- Touring Bike -->
+            <div class="bike-card" data-type="touring">
+                <img src="https://i.gadgets360cdn.com/large/Honda_1730719474249.jpg" alt="Touring Bike" class="bike-img">
+                <div class="bike-info">
+                    <div class="bike-type">Touring Bike</div>
+                    <h3 class="bike-name">Globe Trekker</h3>
+                    <div class="bike-price">₹1,800</div>
+                    <div class="bike-features">Steel frame, rack mounts, comfortable geometry</div>
+                    <a href="b8.html" class="view-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Bike World. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple search functionality
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const bikeCards = document.querySelectorAll('.bike-card');
+            
+            bikeCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filter = this.textContent;
+                const bikeCards = document.querySelectorAll('.bike-card');
+                
+                bikeCards.forEach(card => {
+                    if (filter === 'All Bikes') {
+                        card.style.display = 'block';
+                    } else {
+                        const bikeType = card.getAttribute('data-type');
+                        const typeText = filter.replace(' Bikes', '').toLowerCase();
+                        if (bikeType === typeText || (filter === 'BMX' && bikeType === 'bmx') || (filter === 'Kids Bikes' && bikeType === 'kids')) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+        // Mobile Navigation Toggle
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+    });
+});
+    </script>
+</body>
+</html>

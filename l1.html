@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Bike | BikeRentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FF8C33;
+            --dark: #2D2D2D;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+            --success: #28A745;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F5F7FA;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+            header {
+            background-color:#f16610;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: static;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-name {
+           display: flex;
+            align-items: center;
+            text-align: center;
+        
+        }
+
+        .logo {
+            width: 60px; /* Adjust size */
+            height: auto;
+            margin-left: 560px;* Space between logo and text */
+        }
+
+        .name {
+            font-size: 36px; /* Increase brand name size */
+            font-weight: bold; /* Make it bold */
+            font-family: Arial, sans-serif; /* Choose a readable font */
+            
+        }
+
+        .name .tran {
+            color: white; /* Blue color for "Tran" */
+        }
+
+        .name .spo {
+            color: black; /* Orange color for "Spo" */
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--dark);
+            color: white;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-container a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-container a:hover {
+            background-color: var(--primary);
+        }
+        
+        .nav-container a.active {
+            background-color: var(--primary);
+        }
+        
+        .nav-container a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: white;
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* Booking Container */
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            margin: -50px auto 60px;
+            position: relative;
+            z-index: 1;
+            top: 60px;
+        }
+
+        
+        /* Bike Summary Card */
+        .bike-summary {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: static;
+            top: 60px;
+            height: fit-content;
+        }
+        
+        .bike-image {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bike-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .bike-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 107, 0, 0.3);
+        }
+        
+        .bike-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .bike-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .bike-specs {
+            margin-bottom: 25px;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .spec-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .spec-label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .spec-value {
+            margin-left: auto;
+            color: var(--gray);
+        }
+        
+        /* Price Summary */
+        .price-summary {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            margin-top: 25px;
+        }
+        
+        .price-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .price-title i {
+            color: var(--primary);
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .price-label {
+            color: var(--gray);
+        }
+        
+        .price-value {
+            font-weight: 500;
+        }
+        
+        .total-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Booking Form */
+        .booking-form {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-header i {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+        
+        .form-label.required::after {
+            content: '*';
+            color: var(--primary);
+            margin-left: 4px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+            background-color: white;
+        }
+        
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-input {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: var(--primary);
+        }
+        
+        .checkbox-label {
+            font-size: 14px;
+            color: var(--dark);
+        }
+        
+        .checkbox-price {
+            margin-left: auto;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary);
+        }
+        
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(255, 107, 0, 0.05);
+        }
+        
+        .payment-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+        
+        .payment-method.active .payment-icon {
+            color: var(--primary);
+        }
+        
+        .payment-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Form Actions */
+        .form-actions {
+            margin-top: 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .terms-notice {
+            font-size: 12px;
+            color: var(--gray);
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        
+        .terms-notice a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .terms-notice a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+            color: white;
+        }
+        
+        .footer-logo span {
+            color: var(--primary);
+        }
+        
+        .footer-about p {
+            color: #adb5bd;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #adb5bd;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary);
+            margin-top: 3px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 13px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .bike-summary {
+                position: static;
+                margin-bottom: 30px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-actions {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .nav-container a {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .booking-hero h1 {
+                font-size: 32px;
+            }
+            
+            .booking-hero p {
+                font-size: 16px;
+            }
+            
+            .booking-form {
+                padding: 25px;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-name">
+            <img src="C:\Users\heman\Downloads\transpo1.png" width="60" alt="Logo" class="logo">
+            <span class="name">
+                <span class="tran">Tran</span><span class="spo">Spo</span>
+            </span>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="home.html"><i class="fas fa-home"></i> Home</a>
+            <a href="bikes.html"><i class="fas fa-motorcycle"></i> Bikes</a>
+            <a href="cars.html"><i class="fas fa-car"></i> Cars</a>
+            <a href="autos.html"><i class="fas fa-caravan"></i> Autos</a>
+            <a href="lorries.html"><i class="fas fa-truck"></i> Lorries</a>
+            <a href="constructiont.html"><i class="fas fa-snowplow"></i> Construction Vehicles</a>
+        </div>
+    </nav>
+
+   
+    <!-- Booking Container -->
+    <div class="container">
+        <div class="booking-container">
+            <!-- Bike Summary Card -->
+            <div class="bike-summary">
+                <div class="bike-image">
+                    <img src="https://content.jdmagicbox.com/v2/comp/bangalore/m6/080pxx80.xx80.220509104545.q4m6/catalogue/prerana-motors-pvt-ltd-bangalore-yeshwanthpur-bangalore-zobkmwie2w-250.jpg" alt="TATA 510 SFC">
+                </div>
+                
+                <div class="Auto Green">
+                    <span>TATA 510 SFC</span>
+                    <span class="bike-price">₹25,000/day</span>
+                </div>
+                
+                <div class="bike-specs">
+                    <div class="spec-item">
+                        <div class="spec-icon">
+                            <i class="fas fa-gas-pump"></i>
+                        </div>
+                        <span class="spec-label">Fuel Type</span>
+                        <span class="spec-value">Disel</span>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <span class="spec-label">Engine</span>
+                        <span class="spec-value">2956cc</span>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <span class="spec-label">Transmission</span>
+                        <span class="spec-value">Gear</span>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon">
+                            <i class="fas fa-chair"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="price-summary">
+                    <div class="price-title">
+                        <i class="fas fa-receipt"></i>
+                        <span>Price Summary</span>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span class="price-label">Base Price (1 days)</span>
+                        <span class="price-value">₹25,000</span>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span class="price-label">Insurance</span>
+                        <span class="price-value">₹150</span>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span class="price-label">Service Fee</span>
+                        <span class="price-value">₹100</span>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span class="price-label">Taxes & Charges</span>
+                        <span class="price-value">₹180</span>
+                    </div>
+                    
+                    <div class="total-price">
+                        <span>Total Payable</span>
+                        <span>₹25,430</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Booking Form -->
+            <div class="booking-form">
+                <form id="bookingForm">
+                    
+                    <!-- Rental Period -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h2>Rental Period</h2>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pickup-date" class="form-label required">Pickup Date</label>
+                                <input type="date" id="pickup-date" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="return-date" class="form-label required">Return Date</label>
+                                <input type="date" id="return-date" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pickup-time" class="form-label required">Pickup Time</label>
+                                <input type="time" id="pickup-time" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="return-time" class="form-label required">Return Time</label>
+                                <input type="time" id="return-time" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pickup-location" class="form-label required">Pickup Location</label>
+                            <select id="pickup-location" class="form-control" required>
+                                <option value="">Select pickup location</option>
+                                <option value="guntur-main">Guntur Main Branch</option>
+                                <option value="guntur-east">Guntur East Branch</option>
+                                <option value="vijayawada">Vijayawada Branch</option>
+                                <option value="hyderabad">Hyderabad Branch</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Rental Options -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h2>Rental Options</h2>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="insurance" class="checkbox-input" checked>
+                            <label for="insurance" class="checkbox-label">Comprehensive Insurance Coverage</label>
+                            <span class="checkbox-price">+₹150</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <i class="fas fa-credit-card"></i>
+                            <h2>Payment Information</h2>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method active">
+                                <div class="payment-icon">
+                                    <i class="far fa-credit-card"></i>
+                                </div>
+                                <div class="payment-name">Credit Card</div>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <div class="payment-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="payment-name">Debit Card</div>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <div class="payment-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="payment-name">UPI/Wallet</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card-number" class="form-label required">Card Number</label>
+                            <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry-date" class="form-label required">Expiry Date</label>
+                                <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cvv" class="form-label required">CVV</label>
+                                <input type="text" id="cvv" class="form-control" placeholder="123" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card-name" class="form-label required">Name on Card</label>
+                            <input type="text" id="card-name" class="form-control" placeholder="As on card" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-lock"></i> Confirm & Pay ₹
+                        </button>
+                        <p class="terms-notice">
+                            By completing this booking, you agree to our 
+                            <a href="terms.html">Terms & Conditions</a> and 
+                            <a href="privacy.html">Privacy Policy</a>. Your payment is secured with 256-bit SSL encryption.
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="index.html" class="footer-logo">Tran<span>Spo</span></a>
+                    <p>Your trusted partner for premium Vehicles rentals across Andhra Pradesh. We offer the best bikes at competitive prices with exceptional customer service.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bikes.html">Browse Bikes</a></li>
+                        <li><a href="offers.html">Special Offers</a></li>
+                        <li><a href="locations.html">Our Locations</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="insurance.html">Insurance Coverage</a></li>
+                        <li><a href="cancellation.html">Cancellation Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 MG Road, Guntur, Andhra Pradesh 522001</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> bookings@bikerentals.com</p>
+                    <p><i class="fas fa-clock"></i> Open Daily: 8:00 AM - 8:00 PM</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 BikeRentals. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b00;"></i> in India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Booking Form Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum dates for pickup and return
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const todayStr = today.toISOString().split('T')[0];
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            
+            document.getElementById('pickup-date').min = todayStr;
+            document.getElementById('return-date').min = tomorrowStr;
+            
+            // Update return date min when pickup date changes
+            document.getElementById('pickup-date').addEventListener('change', function() {
+                const pickupDate = new Date(this.value);
+                const minReturnDate = new Date(pickupDate);
+                minReturnDate.setDate(minReturnDate.getDate() + 1);
+                
+                const returnDateField = document.getElementById('return-date');
+                returnDateField.min = minReturnDate.toISOString().split('T')[0];
+                
+                // If current return date is before new min, reset it
+                if (new Date(returnDateField.value) < minReturnDate) {
+                    returnDateField.value = minReturnDate.toISOString().split('T')[0];
+                }
+            });
+            
+            // Payment method selection
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Form submission
+            const bookingForm = document.getElementById('bookingForm');
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    alert('Please fill in all required fields correctly.');
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                
+                // Simulate payment processing
+                setTimeout(function() {
+                    // In a real implementation, you would process payment here
+                    alert('Booking confirmed! Thank you for your reservation.');
+                    // window.location.href = 'booking-confirmation.html';
+                    
+                    // Reset button (in case of error)
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+            
+            // Update price when options change
+            const checkboxes = document.querySelectorAll('.checkbox-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updatePrice);
+            });
+            
+            function updatePrice() {
+                // In a real implementation, you would calculate the total price
+                console.log('Price updated based on selections');
+            }
+        });
+    </script>
+</body>
+</html>
